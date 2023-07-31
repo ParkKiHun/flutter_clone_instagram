@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
 
@@ -7,15 +8,11 @@ class BottomNavController extends ChangeNotifier {
 
   int get pageIndex => _pageIndex;
 
-  set pageIndex(int value) {
-    _pageIndex = value;
-    notifyListeners();
-  }
-
-  void changeBottomNav(int value) {
+  void changeBottomNav(int value, BuildContext context) {
     var page = PageName.values[value];
     switch (page) {
       case PageName.UPLOAD:
+        context.pushNamed('upload');
         break;
       case PageName.HOME:
       case PageName.SEARCH:

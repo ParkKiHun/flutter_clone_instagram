@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/components/image_data.dart';
 import 'package:flutter_clone_instagram/src/controller/bottom_nav_controller.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -22,12 +21,7 @@ class App extends StatelessWidget {
                 child: const Center(child: Text('SEARCH')),
               ),
               Container(
-                child: InkWell(
-                  onTap: () => context.pushNamed('upload'),
-                  child: const Center(
-                    child: Text('UPLOAD'),
-                  ),
-                ),
+                child: const Center(child: Text('UPLOAD')),
               ),
               Container(
                 child: const Center(child: Text('ACTIVITY')),
@@ -45,7 +39,7 @@ class App extends StatelessWidget {
             elevation: 0,
             onTap: (value) =>
                 Provider.of<BottomNavController>(context, listen: false)
-                    .changeBottomNav(value),
+                    .changeBottomNav(value, context),
             items: [
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.homeOff),
