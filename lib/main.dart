@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/app.dart';
 import 'package:flutter_clone_instagram/src/controller/bottom_nav_controller.dart';
+import 'package:flutter_clone_instagram/src/pages/error.dart';
 import 'package:flutter_clone_instagram/src/pages/upload.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ void main() {
 }
 
 final GoRouter _route = GoRouter(
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -21,6 +23,9 @@ final GoRouter _route = GoRouter(
       builder: (context, state) => const Upload(),
     ),
   ],
+  errorBuilder: (context, state) {
+    return CustomError(errorDetails: state.error.toString());
+  },
 );
 
 class MyApp extends StatelessWidget {
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
             primaryColor: Colors.blue,
