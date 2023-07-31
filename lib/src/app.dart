@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/components/image_data.dart';
+import 'package:flutter_clone_instagram/src/controller/bottom_nav_controller.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,13 +12,40 @@ class App extends StatelessWidget {
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(),
-          body: Container(),
+          body: IndexedStack(
+            index: Provider.of<BottomNavController>(context).pageIndex,
+            children: [
+              Container(
+                child: const Center(child: Text('HOME')),
+              ),
+              Container(
+                child: const Center(child: Text('SEARCH')),
+              ),
+              Container(
+                child: InkWell(
+                  onTap: () => context.pushNamed('upload'),
+                  child: const Center(
+                    child: Text('UPLOAD'),
+                  ),
+                ),
+              ),
+              Container(
+                child: const Center(child: Text('ACTIVITY')),
+              ),
+              Container(
+                child: const Center(child: Text('MYPAGE')),
+              ),
+            ],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            currentIndex: 0,
-            onTap: (value) {},
+            currentIndex: Provider.of<BottomNavController>(context).pageIndex,
+            elevation: 0,
+            onTap: (value) =>
+                Provider.of<BottomNavController>(context, listen: false)
+                    .changeBottomNav(value),
             items: [
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.homeOff),
