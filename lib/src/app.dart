@@ -1,45 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/components/image_data.dart';
-import 'package:flutter_clone_instagram/src/controller/bottom_nav_controller.dart';
+import 'package:flutter_clone_instagram/src/viewmodel/bottom_nav_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
+
+  late BottomNavViewModel _bottomNavViewModel;
 
   @override
   Widget build(BuildContext context) {
+    _bottomNavViewModel =
+        Provider.of<BottomNavViewModel>(context, listen: false);
+
     return WillPopScope(
+        onWillPop: () => _bottomNavViewModel.willPopAction(context),
         child: Scaffold(
           appBar: AppBar(),
-          body: IndexedStack(
-            index: Provider.of<BottomNavController>(context).pageIndex,
-            children: [
-              Container(
-                child: const Center(child: Text('HOME')),
-              ),
-              Container(
-                child: const Center(child: Text('SEARCH')),
-              ),
-              Container(
-                child: const Center(child: Text('UPLOAD')),
-              ),
-              Container(
-                child: const Center(child: Text('ACTIVITY')),
-              ),
-              Container(
-                child: const Center(child: Text('MYPAGE')),
-              ),
-            ],
+          body: SafeArea(
+            child: IndexedStack(
+              index: Provider.of<BottomNavViewModel>(context).pageIndex,
+              children: [
+                Container(
+                  child: const Center(child: Text('HOME')),
+                ),
+                Container(
+                  child: const Center(child: Text('SEARCH')),
+                ),
+                Container(
+                  child: const Center(child: Text('UPLOAD')),
+                ),
+                Container(
+                  child: const Center(child: Text('ACTIVITY')),
+                ),
+                Container(
+                  child: const Center(child: Text('MYPAGE')),
+                ),
+              ],
+            ),
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            currentIndex: Provider.of<BottomNavController>(context).pageIndex,
+            currentIndex: _bottomNavViewModel.pageIndex,
             elevation: 0,
             onTap: (value) =>
-                Provider.of<BottomNavController>(context, listen: false)
-                    .changeBottomNav(value, context),
+                _bottomNavViewModel.changeBottomNav(value, context),
             items: [
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.homeOff),
@@ -71,9 +78,6 @@ class App extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        onWillPop: () async {
-          return false;
-        });
+        ));
   }
 }
