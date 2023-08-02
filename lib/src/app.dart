@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/components/image_data.dart';
+import 'package:flutter_clone_instagram/src/pages/home.dart';
 import 'package:flutter_clone_instagram/src/viewmodel/bottom_nav_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -16,14 +17,11 @@ class App extends StatelessWidget {
     return WillPopScope(
         onWillPop: () => _bottomNavViewModel.willPopAction(context),
         child: Scaffold(
-          appBar: AppBar(),
           body: SafeArea(
             child: IndexedStack(
               index: Provider.of<BottomNavViewModel>(context).pageIndex,
               children: [
-                Container(
-                  child: const Center(child: Text('HOME')),
-                ),
+                const Home(),
                 Container(
                   child: const Center(child: Text('SEARCH')),
                 ),
