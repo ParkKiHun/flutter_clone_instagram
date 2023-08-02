@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/app.dart';
+import 'package:flutter_clone_instagram/src/pages/search/search_focus.dart';
 import 'package:flutter_clone_instagram/src/viewmodel/bottom_nav_viewmodel.dart';
 import 'package:flutter_clone_instagram/src/pages/error.dart';
 import 'package:flutter_clone_instagram/src/pages/upload.dart';
@@ -24,6 +25,11 @@ class MyApp extends StatelessWidget {
         name: 'upload',
         path: '/upload',
         builder: (context, state) => const Upload(),
+      ),
+      GoRoute(
+        name: 'searchFocus',
+        path: '/searchFocus',
+        builder: (context, state) => const SearchFocus(),
       ),
     ],
     errorBuilder: (context, state) {

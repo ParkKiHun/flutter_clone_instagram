@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/components/image_data.dart';
 import 'package:flutter_clone_instagram/src/pages/home.dart';
+import 'package:flutter_clone_instagram/src/pages/search.dart';
 import 'package:flutter_clone_instagram/src/viewmodel/bottom_nav_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -22,9 +23,7 @@ class App extends StatelessWidget {
               index: Provider.of<BottomNavViewModel>(context).pageIndex,
               children: [
                 const Home(),
-                Container(
-                  child: const Center(child: Text('SEARCH')),
-                ),
+                const Search(),
                 Container(
                   child: const Center(child: Text('UPLOAD')),
                 ),
