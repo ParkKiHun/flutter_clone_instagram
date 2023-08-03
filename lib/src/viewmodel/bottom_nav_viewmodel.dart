@@ -8,6 +8,8 @@ enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
 
 class BottomNavViewModel extends ChangeNotifier {
   int _pageIndex = 0;
+  GlobalKey<NavigatorState> searchPageNaviationKey =
+      GlobalKey<NavigatorState>();
   List<int> bottomHistory = [0];
 
   int get pageIndex => _pageIndex;
@@ -42,20 +44,28 @@ class BottomNavViewModel extends ChangeNotifier {
   Future<bool> willPopAction(BuildContext context) async {
     if (bottomHistory.length == 1) {
       showDialog(
-          context: context,
-          builder: (context) => MessagePopup(
-                message: '종료하시겠습니까?',
-                okCallback: () {
-                  exit(0);
-                },
-                cancleCallback: context.pop,
-                title: '시스템',
-              ));
+        context: context,
+        builder: (context) => MessagePopup(
+          message: '종료하시겠습니까?',
+          okCallback: () {
+            exit(0);
+          },
+          cancleCallback: context.pop,
+          title: '시스템',
+        ),
+      );
       return true;
     } else {
+      var page = PageName.values[bottomHistory.last];
+      if (page == PageName.SEARCH) {
+        var value = await searchPageNaviationKey.currentState!.maybePop();
+        if (value) return false;
+      }
+
       bottomHistory.removeLast();
       int index = bottomHistory.last;
-      changeBottomNav(index, context, hasGesture: false);
+      _changePage(index, hasGesture: false);
+      // changeBottomNav(index, context, hasGesture: false);
       print(bottomHistory);
       return false;
     }

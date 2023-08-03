@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_clone_instagram/src/pages/search/search_focus.dart';
 import 'package:quiver/iterables.dart';
 
 class Search extends StatefulWidget {
@@ -37,11 +37,17 @@ class _SearchState extends State<Search> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              context.pushNamed("searchFocus");
+              // context.pushNamed("searchFocus");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchFocus(),
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-              margin: const EdgeInsets.only(left: 15, top: 5),
+              margin: const EdgeInsets.only(left: 15, top: 5, bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 color: const Color(0xffefefef),

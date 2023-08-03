@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_instagram/src/app.dart';
 import 'package:flutter_clone_instagram/src/pages/search/search_focus.dart';
+import 'package:flutter_clone_instagram/src/router/router.dart';
 import 'package:flutter_clone_instagram/src/viewmodel/bottom_nav_viewmodel.dart';
 import 'package:flutter_clone_instagram/src/pages/error.dart';
 import 'package:flutter_clone_instagram/src/pages/upload.dart';
@@ -8,34 +9,11 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final GoRouter _route = GoRouter(
-    initialLocation: '/',
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => App(),
-      ),
-      GoRoute(
-        name: 'upload',
-        path: '/upload',
-        builder: (context, state) => const Upload(),
-      ),
-      GoRoute(
-        name: 'searchFocus',
-        path: '/searchFocus',
-        builder: (context, state) => const SearchFocus(),
-      ),
-    ],
-    errorBuilder: (context, state) {
-      return CustomError(errorDetails: state.error.toString());
-    },
-  );
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +32,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.white,
               titleTextStyle: TextStyle(color: Colors.black),
             )),
-        routerConfig: _route,
+        routerConfig: route,
       ),
     );
   }

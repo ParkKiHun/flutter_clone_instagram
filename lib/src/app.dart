@@ -23,7 +23,15 @@ class App extends StatelessWidget {
               index: Provider.of<BottomNavViewModel>(context).pageIndex,
               children: [
                 const Home(),
-                const Search(),
+                Navigator(
+                  key: Provider.of<BottomNavViewModel>(context)
+                      .searchPageNaviationKey,
+                  onGenerateRoute: (routeSetting) {
+                    return MaterialPageRoute(
+                      builder: (context) => const Search(),
+                    );
+                  },
+                ),
                 Container(
                   child: const Center(child: Text('UPLOAD')),
                 ),
@@ -53,16 +61,16 @@ class App extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.searchOff),
                 activeIcon: ImageData(icon: IconsPath.searchOn),
-                label: 'home',
+                label: 'search',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.uploadIcon),
-                label: 'home',
+                label: 'upload',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(icon: IconsPath.activeOff),
                 activeIcon: ImageData(icon: IconsPath.activeOn),
-                label: 'home',
+                label: 'active',
               ),
               BottomNavigationBarItem(
                 icon: Container(
